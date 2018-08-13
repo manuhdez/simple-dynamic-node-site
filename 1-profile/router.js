@@ -19,9 +19,9 @@ const home = (request, response) => {
       request.on('data', postBody => {
         // extract the username
         const query = querystring.parse(postBody.toString())
-        response.write(query.username);
-        response.end();
         // redirect to /:username
+        response.writeHead(303, {"Location": `/${query.username}`});
+        response.end();
       })
     }
   }
