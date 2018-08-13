@@ -32,13 +32,13 @@ const user = (request, response) => {
       response.end('Footer\n');
     });
 
-      // on error
-      studentProfile.on('error', error => {
-        // show error
-        // console.error(error.message);
-        response.write(error.message + "\n");
-        response.end('Footer\n');
-      });
+    // on error
+    studentProfile.on('error', error => {
+      // show error
+      // console.error(error.message);
+      response.write(error.message + "\n");
+      response.end('Footer\n');
+    });
 
   }
 }
