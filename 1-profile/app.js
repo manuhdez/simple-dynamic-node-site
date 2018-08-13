@@ -5,7 +5,8 @@ const hostname = '127.0.0.1';
 const port = 3000;
 
 const server = http.createServer((request, response) => {
-  homeRoute(request, response);
+  router.home(request, response);
+  router.user(request, response);
 });
 
 server.listen(port, hostname, () => {
