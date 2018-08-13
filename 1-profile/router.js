@@ -1,16 +1,29 @@
 const Profile = require('./profile');
+const querystring = require('querystring');
 const renderer = require('./renderer');
 
 const commonHeaders = { 'Content-Type': 'text/html'}
 
 const home = (request, response) => {
   if (request.url === '/') {
-    response.statusCode = 200;
-    response.writeHead(200, commonHeaders);
-    renderer.view('header', null, response);
-    renderer.view('search', null, response);
-    renderer.view('footer', null, response);
-    response.end();
+    if (request.method.toLowerCase() === 'get') {
+      response.statusCode = 200;
+      response.writeHead(200, commonHeaders);
+      renderer.view('header', null, response);
+      renderer.view('search', null, response);
+      renderer.view('footer', null, response);
+      response.end();
+    } else if (request.method.toLowerCase() === 'post') {
+      // if url == "/" && method == "POST"
+      // get the POST data from body
+      request.on('data', postBody => {
+        // extract the username
+        const query = querystring.parse(postBody.toString())
+        response.write(query.username);
+        response.end();
+        // redirect to /:username
+      })
+    }
   }
 }
 
